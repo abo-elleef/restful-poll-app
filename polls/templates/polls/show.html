@@ -1,0 +1,8 @@
+{% load url from future %}
+
+{{poll.question}}
+<ul>
+	{% for choice in poll.choice_set.all %}
+		<li> {{ choice.choice_text }} -- votes => {{ choice.votes}} vote{{ choice.votes|pluralize }} </li>
+	{% endfor %}
+</ul>
