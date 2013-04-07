@@ -4,7 +4,13 @@
 {% if polls %}
 <ul>
 	{% for poll in polls %}
-	<li><a href="{% url 'polls:show' poll.id %}">  {{ poll.question }} </a> </li>
+	<li>
+		<a href="{% url 'polls:show' poll.id %}">  {{ poll.question }} </a> 
+		<a href="{% url 'polls:vote' poll.id %}">  vote </a> 
+		<a href="{% url 'polls:show' poll.id %}">  Show </a> 
+		<a href="{% url 'polls:edit' poll.id %}">  Edit </a> 
+		<a href="{% url 'polls:destroy' poll.id %}">  Delete </a> 
+	</li>
 	{% endfor %}
 </ul>
 {% endif%}
