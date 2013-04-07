@@ -3,5 +3,11 @@
 <form action="{% url 'polls:create' %}" method= 'post'>
 	{% csrf_token %}
 	{{ poll.as_p }}
+	{{ choices.management_form }}
+	{% for choice in choices %}
+	<p>
+		{{ choice }}
+	</p>
+	{% endfor %}
 	<input type="submit" value='submit'>
 </form>
