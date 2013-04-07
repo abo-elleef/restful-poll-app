@@ -40,7 +40,7 @@ def create(request):
 		context = {'form':NewPoll()}
 		return render(request,'polls/new.html',context)
 
-def edit(request,poll_id,template = 'polls/index.html'):
+def edit(request,poll_id,template = 'polls/edit.html'):
 	poll = get_object_or_404(Poll,pk=poll_id)
 	poll_form = PollForm(instance=poll)
 	choices_form_set = modelformset_factory(Choice,fields=('choice_text','votes',))
