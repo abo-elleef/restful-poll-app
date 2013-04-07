@@ -58,21 +58,24 @@ def destroy(request,poll_id):
 def edit(request,poll_id):
 	poll = get_object_or_404(Poll,pk=poll_id)
 	poll_form = PollForm(instance=poll)
-	# choices = []
-	# for i in poll.choice_set.all():
-	# 	choices.append(ChoiceForm(instance=i))
 	choices_form_set = modelformset_factory(Choice,fields=('choice_text','votes',))
 	form_set = choices_form_set(queryset = Choice.objects.filter(poll_id = poll.id))
-	# choices_form_set = formset_factory(ChoiceForm)
 	context = {'poll_form':poll_form,'poll':poll,'choices':form_set}
 	return render(request,'polls/edit.html',context)
 
 def update(request,poll_id):
-	print request.POST['choice_text']
 	poll = get_object_or_404(Poll,pk=poll_id)
 	if request.method == "POST":
 		form = PollForm(request.POST,instance=poll)
-		form.save()
+		if form.is_valid():
+			form.save()
+		print "going"
+		choices_form_set = modelformset_factory(Choice,fields=('choice_text','votes',))
+		print "going"
+		form_set =choices_form_set(request.POST)
+		if form_set.is_valid():
+			form_set.save()
+		print "going"
 		# if form.is_valid:
 		# 	clean_inputs_and_update(form,poll)
 		return HttpResponseRedirect(reverse('polls:index'))

@@ -7,6 +7,7 @@
  <form action='{% url "polls:update" poll.id %}' method = "post"> 
 	{%csrf_token%}
 	{{ poll_form.as_p }}	
+    {{ choices.management_form }}
 	{% for choice in choices %}
 	<p>
 		{{ choice }}
